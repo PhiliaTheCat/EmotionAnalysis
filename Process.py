@@ -1,3 +1,4 @@
+from asyncio import constants
 from encodings import utf_8
 from enum import Flag
 import jieba 
@@ -28,5 +29,11 @@ for each_line in fin:
     result = jieba.cut(cache[2])
     for i in result:
         if (not is_legal(i)):
+            continue
+        if (len(i) < 2):
+            continue
+        if (i.isdecimal()):
+            continue
+        if (i.find("一") >= 0):
             continue
         fout.write(i + "\n")
